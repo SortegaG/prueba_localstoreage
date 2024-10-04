@@ -12,8 +12,7 @@ form.addEventListener('submit', function(event) {       // validacion de envío 
     const message = document.getElementById('message').value;
     const imageUrl = document.getElementById('image-url').value;  
 
-    const contact = {       // Objeto donde almacenar variables
-        id: Date.now(),     // Da un id aleatorio
+    const contact = {       // Objeto donde almacenar variable         
         name,
         email,
         message,
@@ -42,25 +41,14 @@ function displayContact(contact) {
     contactDiv.classList.add('contact');                // codigo html
 
     contactDiv.innerHTML = `
-        <p><strong>Nombre:</strong> ${contact.name}</p>
-        <p><strong>Email:</strong> ${contact.email}</p>
-        <p><strong>Mensaje:</strong> ${contact.message}</p>
+        <p>Nombre: ${contact.name}</p>
+        <p>Email: ${contact.email}</p>
+        <p>Mensaje: ${contact.message}</p>
         ${contact.imageUrl ? `<img src="${contact.imageUrl}" alt="Imagen de ${contact.name}">` : ''}
-        <button class="delete-btn" data-id="${contact.id}">Eliminar</button>
     `;
-
-    const deleteBtn = contactDiv.querySelector('.delete-btn');
-    deleteBtn.addEventListener('click', () => deleteContact(contact.id, contactDiv));
-
     contactList.appendChild(contactDiv);
 }
 
-function deleteContact(id, contactElement) {
-    let contacts = JSON.parse(localStorage.getItem('contacts')) || []; // Transforma la cadena obtenida o un array vacio
-    contacts = contacts.filter(contact => contact.id !== id);
-    localStorage.setItem('contacts', JSON.stringify(contacts));
-    contactElement.remove();
-}
 
 deleteAllButton.addEventListener('click', function() {  // Boton que elimina todo y limpia la lista de contactos 
     localStorage.clear();
